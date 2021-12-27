@@ -45,8 +45,8 @@ public class UserController {
 
         if (ExcelHelper.hasExcelFormat(file)) {
             try {
-                List<Age> tutorials = ExcelHelper.excelToTutorials(file.getInputStream());
-                ageRepository.saveAll(tutorials);
+                List<UserEntity> utenti = ExcelHelper.excelToTutorials(file.getInputStream());
+                userRepository.saveAll(utenti);
             } catch (IOException e) {
                 throw new RuntimeException("fail to store excel data: " + e.getMessage());
             }
