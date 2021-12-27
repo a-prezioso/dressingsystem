@@ -34,7 +34,7 @@ public class BasicAuthSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(userDetailsService);
+        System.out.println(auth.authenticationProvider(userDetailsService));
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {

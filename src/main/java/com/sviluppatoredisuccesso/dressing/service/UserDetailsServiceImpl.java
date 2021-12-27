@@ -1,5 +1,6 @@
 package com.sviluppatoredisuccesso.dressing.service;
 
+import com.sviluppatoredisuccesso.dressing.dto.GeneralDto;
 import com.sviluppatoredisuccesso.dressing.entity.Role;
 import com.sviluppatoredisuccesso.dressing.entity.UserEntity;
 import com.sviluppatoredisuccesso.dressing.repository.UserRepository;
@@ -36,8 +37,16 @@ public class UserDetailsServiceImpl implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
 
         UserEntity user = userRepository.getUserByUsername(email);
-        if(new BCryptPasswordEncoder().encode(password).equals(user.getPassword())) {
-            System.out.println("uguali");
+        String test = "{bcrypt}"+new BCryptPasswordEncoder().encode(password);
+        if(!new BCryptPasswordEncoder().matches(password, user.getPassword().substring(8,user.getPassword().length()))) {
+
+
+            throw new AuthenticationException("password non trovata") {
+                @Override
+                public String getMessage() {
+                    return super.getMessage();
+                }
+            };
         }
 
         List<GrantedAuthority> authorities = new ArrayList<>();
