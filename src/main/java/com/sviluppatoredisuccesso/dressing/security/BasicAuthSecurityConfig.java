@@ -34,13 +34,13 @@ public class BasicAuthSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        System.out.println(auth.authenticationProvider(userDetailsService));
+        auth.authenticationProvider(userDetailsService);
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/pippo/**").permitAll()
-                .antMatchers("/user/test").hasRole("USER")
+        http.csrf().disable().authorizeRequests()
+                .antMatchers("/user/test").permitAll()
+                .antMatchers("/user/upload").hasRole("USER")
                 .antMatchers("/user/nontest").hasRole("ADMIN")
                 .and().httpBasic();
     }
